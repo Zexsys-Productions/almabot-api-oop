@@ -9,17 +9,7 @@ from resources import rubric
 # declaring class for Subject
 class Subject:
     
-    def __init__(self, 
-        name, 
-        weight,
-        gradeLetter, 
-
-        # for future endeavors
-        # gradePercentage,
-        # teacher,
-        # location,
-
-        ):
+    def __init__(self, name, weight, gradeLetter):
         
         self.name = name
         self.weight = weight
@@ -71,13 +61,3 @@ def getgpa(username, password):
     # closing the current session
     currentSession.close()
     print("Session ended.")
-
-# def getgradeinfo(username, password):
-
-# def getpastgpa(username, password):
-
-# def getpersonalinfo(username, password):
-
-# def getattendanceinfo(username, password):
-
-# def getcalendarinfo(username, password):
