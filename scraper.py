@@ -4,48 +4,80 @@ from bs4 import BeautifulSoup
 import lxml
 
 # importing all internal modules 
-import credentials
 from resources import rubric
 
 # declaring class for Subject
 class Subject:
-    def __init__(
-        self, 
-        # name, 
-        # code, 
-        grade, 
-        weight
+    
+    def __init__(self, 
+        name, 
+        weight,
+        gradeLetter, 
+
+        # for future endeavors
+        # gradePercentage,
+        # teacher,
+        # location,
+
         ):
-
-        # self.name = name
-        # self.code = code
-        self.grade = grade
+        
+        self.name = name
         self.weight = weight
-        self.weightedGrade = weight * grade
+        self.gradeLetter = gradeLetter
+        self.gradePoint = rubric.gradepointdictionary[gradeLetter]
+        self.weightedGradePoint = self.gradePoint * weight
+    
+def sessionOf(username, password):
 
-SubjectList = list()
-# bi
-SubjectList.append(Subject(4, .5))
-# chem
-SubjectList.append(Subject(4, 1))
-# history
-SubjectList.append(Subject(4, .5))
-# elective
-SubjectList.append(Subject(4, .5))
-# la
-SubjectList.append(Subject(4, .5))
-# pe
-SubjectList.append(Subject(2.7, .5))
-# bible
-SubjectList.append(Subject(4, .5))
-# ppkn
-SubjectList.append(Subject(4, .5))
-# physics
-SubjectList.append(Subject(4, 1))
-# math
-SubjectList.append(Subject(3, 1))
-# rhetoric
-SubjectList.append(Subject(4, 1))
+    payload = {
+        "username": username,
+        "password": password
+    }
 
-gpa = (sum(eachSubject.weightedGrade for eachSubject in SubjectList)/sum(eachSubject.weight for eachSubject in SubjectList))
-print(gpa)
+    loginurl = "https://cbcs.getalma.com/login"
+
+    session = requests.Session()
+    session.post(loginurl, data=payload)
+    return session
+
+def getgpa(username, password):
+
+    # declaring necessary URLs
+    gradeurl = "https://cbcs.getalma.com/home/schedule?view=list"
+    weighturl = "https://cbcs.getalma.com/home/schedule?view=split"
+
+    # declaring the current session as a variable
+    currentSession = sessionOf(username, password)
+
+    gradesoup = BeautifulSoup(currentSession.get(gradeurl).content, "lxml")
+    gradelistofsubjects = gradesoup.tbody("tr")
+
+    weightsoup = BeautifulSoup(currentSession.get(weighturl).content, "lxml")
+    weightlistofsubjects = weightsoup.find_all("div", class_="class-row nav-class")
+
+    SubjectList = list()
+
+    for eachSubject in gradelistofsubjects:
+        currentSubject = list(eachSubject.a.stripped_strings)[0]
+        gradeLetter = list(eachSubject.find(class_="grade snug").stripped_strings)[0]
+        for eachWeightSubject in weightlistofsubjects:
+            if "Homeroom" not in currentSubject and eachWeightSubject.a.get_text() == currentSubject:
+                currentWeight = eachWeightSubject.find("span", class_="credit-hours charcoal").get_text().split(" ")[1]
+                SubjectList.append(Subject(currentSubject, float(currentWeight), gradeLetter))
+
+    gradepointaverage = (sum(everySubject.weightedGradePoint for everySubject in SubjectList)/sum(everySubject.weight for everySubject in SubjectList))
+    return round(gradepointaverage, 2)
+
+    # closing the current session
+    currentSession.close()
+    print("Session ended.")
+
+# def getgradeinfo(username, password):
+
+# def getpastgpa(username, password):
+
+# def getpersonalinfo(username, password):
+
+# def getattendanceinfo(username, password):
+
+# def getcalendarinfo(username, password):
