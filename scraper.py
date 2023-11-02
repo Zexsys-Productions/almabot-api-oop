@@ -55,9 +55,9 @@ def getgpa(username, password):
                 currentWeight = eachWeightSubject.find("span", class_="credit-hours charcoal").get_text().split(" ")[1]
                 SubjectList.append(Subject(currentSubject, float(currentWeight), gradeLetter))
 
+    # closing the current session
+    currentSession.close()
+
     gradepointaverage = (sum(everySubject.weightedGradePoint for everySubject in SubjectList)/sum(everySubject.weight for everySubject in SubjectList))
     return round(gradepointaverage, 2)
 
-    # closing the current session
-    currentSession.close()
-    print("Session ended.")
