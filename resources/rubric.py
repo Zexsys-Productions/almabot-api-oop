@@ -11,5 +11,4 @@ gradepointdictionary = {
     "D": 1,
     "E": 0,
     "F": 0,
-    "-": 4
 }

@@ -4,19 +4,8 @@ from bs4 import BeautifulSoup
 import lxml
 
 # importing all internal modules 
-from resources import rubric
+from subject import Subject
 
-# declaring class for Subject
-class Subject:
-    
-    def __init__(self, name, weight, gradeLetter):
-        
-        self.name = name
-        self.weight = weight
-        self.gradeLetter = gradeLetter
-        self.gradePoint = rubric.gradepointdictionary[gradeLetter]
-        self.weightedGradePoint = self.gradePoint * weight
-    
 def sessionOf(username, password):
 
     payload = {
@@ -51,7 +40,7 @@ def getgpa(username, password):
         currentSubject = list(eachSubject.a.stripped_strings)[0]
         gradeLetter = list(eachSubject.find(class_="grade snug").stripped_strings)[0]
         for eachWeightSubject in weightlistofsubjects:
-            if "Homeroom" not in currentSubject and eachWeightSubject.a.get_text() == currentSubject:
+            if ("Homeroom" not in currentSubject) and (eachWeightSubject.a.get_text() == currentSubject) and (gradeLetter != "-"):
                 currentWeight = eachWeightSubject.find("span", class_="credit-hours charcoal").get_text().split(" ")[1]
                 SubjectList.append(Subject(currentSubject, float(currentWeight), gradeLetter))
 
@@ -60,4 +49,6 @@ def getgpa(username, password):
 
     gradepointaverage = (sum(everySubject.weightedGradePoint for everySubject in SubjectList)/sum(everySubject.weight for everySubject in SubjectList))
     return round(gradepointaverage, 2)
+
+# def getgradeinfo(username, password):
 
