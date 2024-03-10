@@ -14,6 +14,6 @@ async def root():
 async def read_credentials(username: str, password: str):
     return {"GPA": f"{scraper.getgpa(username, password)}"}
 
-@app.get("/gpa/")
+@app.get("/gradeinfo/")
 async def read_credentials(username: str, password: str):
     return getgradeinfo(username, password)
