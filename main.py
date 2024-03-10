@@ -12,7 +12,7 @@ async def root():
 
 @app.get("/gpa/")
 async def read_credentials(username: str, password: str):
-    return {"GPA": scraper.getgpa(username, password)}
+    return {"GPA": f"{scraper.getgpa(username, password)}"}
 
 @app.get("/gpa/")
 async def read_credentials(username: str, password: str):
