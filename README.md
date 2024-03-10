@@ -2,7 +2,6 @@
 a practical application of objects for each subject
 
 # TODO
-ASYNC
 def getpastgpa(username, password):
 
 # unattended todo
