@@ -2,7 +2,7 @@
 a practical application of objects for each subject
 
 # TODO
-def getgradeinfo(username, password):
+def getpastgpa(username, password):
 
 # unattended todo
 def getpastgpa(username, password):
