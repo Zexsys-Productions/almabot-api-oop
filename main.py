@@ -8,8 +8,12 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"Zexsys": "ALMABOT API OOP"}
+    return {"Zexsys alma scraper version": "2.0.0"}
 
 @app.get("/gpa/")
 async def read_credentials(username: str, password: str):
     return {"GPA": scraper.getgpa(username, password)}
+
+@app.get("/gpa/")
+async def read_credentials(username: str, password: str):
+    return getgradeinfo(username, password)

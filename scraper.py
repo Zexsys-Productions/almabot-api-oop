@@ -50,5 +50,25 @@ def getgpa(username, password):
     gradepointaverage = (sum(everySubject.weightedGradePoint for everySubject in SubjectList)/sum(everySubject.weight for everySubject in SubjectList))
     return round(gradepointaverage, 2)
 
-# def getgradeinfo(username, password):
+def getgradeinfo(username, password):
 
+    # declaring necessary URLs
+    gradeurl = "https://cbcs.getalma.com/home/schedule?view=list"
+
+    # declaring the current session as a variable
+    currentSession = sessionOf(username, password)
+
+    gradesoup = BeautifulSoup(currentSession.get(gradeurl).content, "lxml")
+    gradelistofsubjects = gradesoup.tbody("tr")
+
+    SubjectList = list()
+
+    for eachSubject in gradelistofsubjects:
+        currentSubject = list(eachSubject.a.stripped_strings)[0]
+        gradeLetter = list(eachSubject.find(class_="grade snug").stripped_strings)[0]
+        SubjectList.append({"subject": currentSubject, "grade": gradeLetter})
+        
+    # closing the current session
+    currentSession.close()
+
+    return SubjectList
