@@ -8,7 +8,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"Zexsys alma scraper version": "2.0.0"}
+    return {"Zexsys API Version": "2.0.1"}
 
 @app.get("/gpa/")
 async def read_credentials(username: str, password: str):
