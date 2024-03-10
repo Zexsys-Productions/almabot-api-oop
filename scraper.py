@@ -66,7 +66,7 @@ def getgradeinfo(username, password):
     for eachSubject in gradelistofsubjects:
         currentSubject = list(eachSubject.a.stripped_strings)[0]
         gradeLetter = list(eachSubject.find(class_="grade snug").stripped_strings)[0]
-        SubjectList.append({"subject": currentSubject, "grade": gradeLetter})
+        if "Homeroom" not in currentSubject: SubjectList.append({"subject": currentSubject, "grade": gradeLetter})
         
     # closing the current session
     currentSession.close()
