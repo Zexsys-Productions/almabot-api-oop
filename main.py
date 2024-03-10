@@ -16,4 +16,4 @@ async def read_credentials(username: str, password: str):
 
 @app.get("/gradeinfo/")
 async def read_credentials(username: str, password: str):
-    return getgradeinfo(username, password)
+    return scraper.getgradeinfo(username, password)
