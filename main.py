@@ -3,6 +3,7 @@ from typing import Union
 from fastapi import FastAPI
 import scraper
 import asyncScraper
+import asyncio
 
 app = FastAPI()
 
@@ -13,7 +14,7 @@ async def root():
 # from synchronous scraper
 @app.get("/gpa/")
 async def read_credentials(username: str, password: str):
-    return {"gpa": f"{asyncScraper.async_get_gpa(username, password)}"}
+    return {"gpa": f"{asyncio.run(asyncScraper.async_get_gpa(username, password))}"}
 
 # from synchronous scraper
 @app.get("/gradeinfo/")
