@@ -9,7 +9,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"Zexsys API Version": "2.0.4"}
+    return {"Zexsys API Version": "2.0.5"}
 
 # from synchronous scraper
 @app.get("/gpa/")
