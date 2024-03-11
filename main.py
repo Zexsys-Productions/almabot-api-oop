@@ -14,7 +14,8 @@ async def root():
 # from synchronous scraper
 @app.get("/gpa/")
 async def read_credentials(username: str, password: str):
-    return {"gpa": f"{asyncio.run(asyncScraper.async_get_gpa(username, password))}"}
+    gpa = await asyncScraper.async_get_gpa(username, password)
+    return {"gpa": f"{gpa}"}
 
 # from synchronous scraper
 @app.get("/gradeinfo/")
