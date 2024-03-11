@@ -19,7 +19,7 @@ def sessionOf(username, password):
     session.post(loginurl, data=payload)
     return session
 
-def getgpa(username, password):
+def get_gpa(username, password):
 
     # declaring necessary URLs
     gradeurl = "https://cbcs.getalma.com/home/schedule?view=list"
@@ -50,7 +50,7 @@ def getgpa(username, password):
     gradepointaverage = (sum(everySubject.weightedGradePoint for everySubject in SubjectList)/sum(everySubject.weight for everySubject in SubjectList))
     return round(gradepointaverage, 2)
 
-def getgradeinfo(username, password):
+def get_grade_info(username, password):
 
     # declaring necessary URLs
     gradeurl = "https://cbcs.getalma.com/home/schedule?view=list"
