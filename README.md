@@ -1,14 +1,27 @@
 # almabot api w/ OOP
 a practical application of objects for each subject
 
-# TODO
-def getpastgpa(username, password):
+# notes
+subject:
+subjectName
+subjectGradeLetter
+subjectGradePercentage
+subjectWeight
+subjectTeacherFace
+list<category>
+list<assignment>
 
-# unattended todo
-def getpastgpa(username, password):
+category:
+categoryName
+categoryLetter
+categoryPercentage
+categoryGrade
 
-def getpersonalinfo(username, password):
-
-def getattendanceinfo(username, password):
-
-def getcalendarinfo(username, password):
+assignment:
+assignmentDue
+assignmentName
+assignmentStatus
+assignmentGradeLetter
+assignmentPercentage
+assignmentPercentOfGrade
+assignmentUpdated
