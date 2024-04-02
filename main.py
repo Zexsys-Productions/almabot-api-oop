@@ -20,4 +20,4 @@ async def read_credentials(username: str, password: str):
 # from synchronous scraper
 @app.get("/gradeinfo")
 async def read_credentials(username: str, password: str):
-    return scraper.get_grade_info(username, password)
+    return {"grades": scraper.get_grade_info(username, password)}
